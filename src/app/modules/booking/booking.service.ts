@@ -13,6 +13,7 @@ const createBookingIntoDB = async ({
   payLoad: TBooking;
   userInfo: JwtPayload;
 }) => {
+  console.log(userInfo);
   const { user } = userInfo;
   console.log('From Booking service:', userInfo);
   if (!user) {

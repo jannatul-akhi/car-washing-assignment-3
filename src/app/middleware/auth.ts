@@ -49,13 +49,13 @@ const authMiddleware = (...requiredRoles: TUserRole[]) => {
     //   throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
     // }
 
-    //const role = (decoded as JwtPayload)?.userRole;
-    // if (requiredRoles && !requiredRoles.includes(userRole)) {
-    //   throw new AppError(
-    //     httpStatus.UNAUTHORIZED,
-    //     `You are not authorized!... ${userRole} can not handle it`,
-    //   );
-    // }
+    const role = (decoded as JwtPayload)?.userRole;
+    if (requiredRoles && !requiredRoles.includes(userRole)) {
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        `You are not authorized!... ${userRole} can not handle it`,
+      );
+    }
 
     req.user = decoded as JwtPayload;
     next();

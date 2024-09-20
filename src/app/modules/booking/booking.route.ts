@@ -10,7 +10,7 @@ const router = express.Router();
 router.post(
   '/',
   authMiddleware(USER_ROLE.user),
-  zodValidationMiddleware(BookingValidations.createBookingValidationSchema),
+  // zodValidationMiddleware(BookingValidations.createBookingValidationSchema),
   BookingControllers.createBooking,
 );
 

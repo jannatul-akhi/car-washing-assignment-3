@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import { ServiceServices } from './service.service';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import { ServiceServices } from './service.service';
 
 const createService = catchAsync(async (req, res) => {
   const body = req.body;
@@ -15,9 +15,21 @@ const createService = catchAsync(async (req, res) => {
   });
 });
 
+const getAllServices = catchAsync(async (req, res) => {
+  const result = await ServiceServices.getAllServices();
+  console.log('From controller', result);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Services retrieved successfully',
+    data: result,
+  });
+});
+
 const getSingleService = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await ServiceServices.getServiceFromDB(id);
+  const result = await ServiceServices.getSingleServiceFromDB(id);
 
   sendResponse(res, {
     success: true,
@@ -27,16 +39,7 @@ const getSingleService = catchAsync(async (req, res) => {
   });
 });
 
-const getAllServices = catchAsync(async (req, res) => {
-  const result = await ServiceServices.getAllServices();
 
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Services retrieved successfully',
-    data: result,
-  });
-});
 
 const updateService = catchAsync(async (req, res) => {
   // const id = req.params.id;   // another way to use id params
@@ -66,8 +69,8 @@ const deleteService = catchAsync(async (req, res) => {
 
 export const ServiceControllers = {
   createService,
-  getSingleService,
   getAllServices,
+  getSingleService,
   updateService,
   deleteService,
 };

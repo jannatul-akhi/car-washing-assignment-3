@@ -30,6 +30,12 @@ const login = catchAsync(async (req, res) => {
     maxAge: 3600000,
   });
 
+  res.cookie('user', JSON.stringify(user), {
+    httpOnly: true,
+    secure: isProduction,
+    maxAge: 3600000,
+  });
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

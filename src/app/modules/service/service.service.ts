@@ -17,7 +17,13 @@ const createServiceIntoDB = async (payload: TService) => {
   return result;
 };
 
-const getServiceFromDB = async (serviceId: string) => {
+const getAllServices = async () => {
+  const result = await Service.find({ isDeleted: false });
+  console.log('from service', result);
+  return result;
+};
+
+const getSingleServiceFromDB = async (serviceId: string) => {
   const service = await Service.findById(serviceId).where({ isDeleted: false });
 
   if (!service) {
@@ -25,13 +31,6 @@ const getServiceFromDB = async (serviceId: string) => {
   }
 
   return service;
-};
-
-
-
-const getAllServices = async () => {
-  const services = await Service.find({ isDeleted: false });
-  return services;
 };
 
 const updateServiceInDB = async (
@@ -50,24 +49,23 @@ const updateServiceInDB = async (
   return updatedService;
 };
 
-
 const deleteServiceFromDB = async (serviceId: string) => {
-    const service = await Service.findById(serviceId);
-  
-    if (!service) {
-      throw new AppError(httpStatus.NOT_FOUND, 'Service not found');
-    }
-  
-    service.isDeleted = true;
-    await service.save();
-  
-    return service;
-  };
+  const service = await Service.findById(serviceId);
+
+  if (!service) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Service not found');
+  }
+
+  service.isDeleted = true;
+  await service.save();
+
+  return service;
+};
 
 export const ServiceServices = {
   createServiceIntoDB,
-  getServiceFromDB,
   getAllServices,
+  getSingleServiceFromDB,
   updateServiceInDB,
   deleteServiceFromDB,
 };

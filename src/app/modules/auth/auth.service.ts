@@ -52,6 +52,7 @@ const loginFromDB = async (payLoad: TUser) => {
   const JwtPayload = {
     email: user.email,
     userRole: user.role,
+    user: user,
   };
 
   const accessToken = createToken(
