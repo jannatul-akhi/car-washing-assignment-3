@@ -3,7 +3,7 @@ import zodValidationMiddleware from '../../middleware/zodValidationMiddleware';
 import { BookingValidations } from './booking.validation';
 import { BookingControllers } from './booking.controller';
 import authMiddleware from '../../middleware/auth';
-import { USER_ROLE } from '../User/user.constant';
+import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
 
